@@ -1,9 +1,9 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {articles} from './fixtures'
-import ArticleList from './components/ArticleList'
+import App from './components/App'
 
 render(
-    <ArticleList articles={articles} />,
+    <App articles={articles} />,
     document.getElementById('container')
 )
