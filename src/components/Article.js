@@ -15,6 +15,10 @@ class Article extends Component{
         toggleOpen: PropTypes.func
     }
 
+    state = {
+        updateIndex: 0
+    }
+
     componentWillReceiveProps(nextProps){
         console.log('willResive', this.props.isOpen, nextProps.isOpen )
     }
@@ -51,13 +55,14 @@ class Article extends Component{
         if (!isOpen) return null
         return <section>
             {article.text}
-            <Comments comments={article.comments} ref={this.componentRef}/>
+            <button onClick={() => this.setState({updateIndex: this.state.updateIndex + 1})} >Updating</button>
+            <Comments comments={article.comments} ref={this.componentRef} key={this.state.updateIndex}/>
         </section>
     }
 
     componentRef = ref => {
         console.log('findDOMNode_ref', findDOMNode(ref))
-        console.log('ref', findDOMNode(ref))
+        console.log('ref', ref)
     }
 }
 
