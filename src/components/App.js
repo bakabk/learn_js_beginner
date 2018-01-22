@@ -5,6 +5,7 @@ import ArticleCharts from './ArticleCharts'
 import UserForm from './UserForm'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css';
+import DayPicker from './DayPicker'
 
 class App extends Component{
     PropTypes = {
@@ -25,7 +26,8 @@ class App extends Component{
 
         return(
             <div>
-                <UserForm />
+                <DayPicker /> <br /><br />
+                <UserForm /> <br /><br />
                 <Select
                     options={options}
                     value={this.state.selection}
