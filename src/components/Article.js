@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import React, {Component, PureComponent} from 'react'
 import {findDOMNode} from 'react-dom'
 import Comments from './Comments'
 import PropTypes from 'prop-types'
 import toggleOppen from '../decorators/toggleOppen'
 
-class Article extends Component{
+class Article extends PureComponent{
     static propTypes = {
         article: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -19,16 +19,13 @@ class Article extends Component{
         updateIndex: 0
     }
 
-    componentWillReceiveProps(nextProps){
-        console.log('willResive', this.props.isOpen, nextProps.isOpen )
-    }
-
-    componentWillMount() {
-        console.log('will')
-    }
+    // shouldComponentUpdate(nextProps, nextState){
+    //     return nextProps.isOpen !== this.props.isOpen
+    // }
 
     render() {
         const {article, isOpen, toggleOpen} = this.props
+        console.log('---------', 'updated article')
 
         return (
             <div ref = {this.containerRef}>
@@ -43,11 +40,11 @@ class Article extends Component{
 
     containerRef = ref => {
         this.container = ref
-        console.log('test ref', ref)
+        // console.log('test ref', ref)
     }
 
     componentDidMount() {
-        console.log('test - container did mount')
+        // console.log('test - container did mount')
     }
 
     getBody = () => {
@@ -61,8 +58,8 @@ class Article extends Component{
     }
 
     componentRef = ref => {
-        console.log('findDOMNode_ref', findDOMNode(ref))
-        console.log('ref', ref)
+        // console.log('findDOMNode_ref', findDOMNode(ref))
+        // console.log('ref', ref)
     }
 }
 
