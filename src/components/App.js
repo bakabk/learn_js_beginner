@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ArticleList from './ArticleList'
-import ArticleCharts from './ArticleCharts'
 import UserForm from './UserForm'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css';
@@ -18,12 +17,10 @@ class App extends Component{
     changeSelection = selection => this.setState({selection})
 
     render (){
-        console.log('this.props-----------', this.props)
-
-        const options = this.props.articles.map(article => ({
-            label: article.title,
-            value: article.id
-        }))
+        // const options = this.props.articles.map(article => ({
+        //     label: article.title,
+        //     value: article.id
+        // }))
 
         return(
             <div>
@@ -31,13 +28,12 @@ class App extends Component{
                 <DayPicker /> <br /><br />
                 <UserForm /> <br /><br />
                 <Select
-                    options={options}
+                    options={[]}
                     value={this.state.selection}
                     onChange={this.changeSelection}
                     multi
                 />
-                <ArticleList articles={this.props.articles} />
-                <ArticleCharts articles={this.props.articles} />
+                <ArticleList />
             </div>
         )
     }

@@ -1,8 +1,10 @@
 import React, {Component, PureComponent} from 'react'
 import {findDOMNode} from 'react-dom'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import Comments from './Comments'
 import { CSSTransitionGroup } from 'react-transition-group'
+import {deleteArticle} from '../AC'
 import './article.css'
 
 class Article extends PureComponent{
@@ -48,12 +50,21 @@ class Article extends PureComponent{
         // console.log('test - container did mount')
     }
 
+    handleDelete = () => {
+        const {deleteArticle, article} = this.props
+        deleteArticle(article.id)
+        console.log('handleDelete click')
+    }
+
     getBody = () => {
         const {article, isOpen} = this.props
         if (!isOpen) return null
         return <section>
             {article.text}
+            <br />
             <button onClick={() => this.setState({updateIndex: this.state.updateIndex + 1})} >Updating</button>
+
+            <button onClick={this.handleDelete}>Delete me</button>
 
             <CSSTransitionGroup
                 transitionName="article"
@@ -72,4 +83,4 @@ class Article extends PureComponent{
     }
 }
 
-export default Article
+export default connect(null, {deleteArticle})(Article)
