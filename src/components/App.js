@@ -6,11 +6,10 @@ import UserForm from './UserForm'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css';
 import DayPicker from './DayPicker'
+import Counter from './Counter'
 
 class App extends Component{
-    PropTypes = {
-
-    }
+    PropTypes = {}
 
     state = {
         selection: null
@@ -19,6 +18,8 @@ class App extends Component{
     changeSelection = selection => this.setState({selection})
 
     render (){
+        console.log('this.props-----------', this.props)
+
         const options = this.props.articles.map(article => ({
             label: article.title,
             value: article.id
@@ -26,6 +27,7 @@ class App extends Component{
 
         return(
             <div>
+                <Counter />
                 <DayPicker /> <br /><br />
                 <UserForm /> <br /><br />
                 <Select
