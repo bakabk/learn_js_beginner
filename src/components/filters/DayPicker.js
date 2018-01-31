@@ -1,7 +1,7 @@
 import React from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
-import {editFilter} from '../AC'
+import {editDateFilter} from '../../AC/index'
 import {connect} from "react-redux";
 
 class Picker extends React.Component {
@@ -12,40 +12,29 @@ class Picker extends React.Component {
         super(props);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
-        this.state = this.getInitialState();
     }
-    getInitialState() {
-        return {
-            from: undefined,
-            to: undefined,
-        };
-    }
+
     handleDayClick(day) {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range);
-        console.log('range', range)
-        if (range.from && range.to){
-            this.props.editFilter(range)
-        }
+        const {dateRange, editDateFilter} = this.props
+        editDateFilter(DateUtils.addDayToRange(day, dateRange))
     }
-    handleResetClick() {
-        // this.setState(this.getInitialState());
-        this.props.editFilter(this.getInitialState());
-    }
+
+    handleResetClick() {}
+
     render() {
-        const { from, to } = this.state;
+        const {from, to} = this.props.dateRange;
+
+        console.log('---', from, to)
         const modifiers = { start: from, end: to };
         return (
             <div className="RangeExample">
                 <p>
                     {!from && !to && 'Please select the first day.'}
                     {from && !to && 'Please select the last day.'}
-                    {from &&
-                    to &&
+                    {from && to &&
                     `Selected from ${from.toLocaleDateString()} to
                 ${to.toLocaleDateString()}`}{' '}
-                    {from &&
-                    to && (
+                    {from && to && (
                         <button className="link" onClick={this.handleResetClick}>
                             Reset
                         </button>
@@ -64,5 +53,5 @@ class Picker extends React.Component {
 }
 
 export default connect( (store)=>({
-    filter: store.filter
-}), {editFilter})(Picker)
+    dateRange: store.filters.dateRange
+}), {editDateFilter})(Picker)

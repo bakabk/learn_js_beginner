@@ -14,16 +14,13 @@ class ArticleList extends Component{
     }
 
     render() {
-        const { filter, articles, toggleOpenItem, openItemId } = this.props
-
-        console.log('articles', articles)
-        console.log('filter', filter)
+        const { articles, toggleOpenItem, openItemId } = this.props
 
         let filteredArticles = articles
 
-        if (filter && filter.filter && filter.filter.from && filter.filter.to){
-            filteredArticles = articles.filter(article => ( Date.parse(article.date) >= Date.parse(filter.filter.from) && Date.parse(article.date) <= Date.parse(filter.filter.to) ) )
-        }
+        // if (filter && filter.filter && filter.filter.from && filter.filter.to){
+        //     filteredArticles = articles.filter(article => ( Date.parse(article.date) >= Date.parse(filter.filter.from) && Date.parse(article.date) <= Date.parse(filter.filter.to) ) )
+        // }
 
         const articleElements = filteredArticles.map((article) => <li key={article.id}>
             <Article
@@ -43,5 +40,5 @@ class ArticleList extends Component{
 
 export default connect( store => ({
     articles: store.articles,
-    filter: store.filter
+    filters: store.filters
 }))(accordion(ArticleList))

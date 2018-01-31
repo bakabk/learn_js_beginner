@@ -1,4 +1,4 @@
-import { INCREMENT, DELETE_ARTICLE, EDIT_FILTER} from "../constants";
+import { INCREMENT, DELETE_ARTICLE, EDIT_DATE_FILTER, EDIT_SELECT_FILTER} from "../constants";
 
 export function increment(){
     return {
@@ -13,9 +13,16 @@ export function deleteArticle(id){
     }
 }
 
-export function editFilter(filter){
+export function editDateFilter(dateFilter){
     return {
-        type: EDIT_FILTER,
-        payload: { filter }
+        type: EDIT_DATE_FILTER,
+        payload: { dateFilter }
+    }
+}
+
+export function editSelectFilter(selected){
+    return {
+        type: EDIT_SELECT_FILTER,
+        payload: { selected }
     }
 }
