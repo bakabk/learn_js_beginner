@@ -14,7 +14,16 @@ class ArticleList extends Component{
     }
 
     render() {
-        const { articles, toggleOpenItem, openItemId } = this.props
+        const { filter, articles, toggleOpenItem, openItemId } = this.props
+
+        console.log('articles', articles)
+        console.log('filter', filter)
+
+        // let filteringArticles =
+        // let isActualFilter = articles.some( (item) = {
+        //     return (item.date >= filter.from && item.date <= item.to)
+        // })
+
         const articleElements = articles.map((article) => <li key={article.id}>
             <Article
                 article={article}
@@ -31,6 +40,7 @@ class ArticleList extends Component{
     }
 }
 
-export default connect( state => ({
-    articles: state.articles
+export default connect( store => ({
+    articles: store.articles,
+    filter: store.filter
 }))(accordion(ArticleList))
