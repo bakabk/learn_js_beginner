@@ -33,9 +33,6 @@ class Picker extends React.Component {
         this.props.editFilter(this.getInitialState());
     }
     render() {
-        // console.log('props', this.props)
-        // console.log('state', this.state)
-
         const { from, to } = this.state;
         const modifiers = { start: from, end: to };
         return (

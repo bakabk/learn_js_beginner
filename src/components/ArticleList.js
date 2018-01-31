@@ -19,12 +19,13 @@ class ArticleList extends Component{
         console.log('articles', articles)
         console.log('filter', filter)
 
-        // let filteringArticles =
-        // let isActualFilter = articles.some( (item) = {
-        //     return (item.date >= filter.from && item.date <= item.to)
-        // })
+        let filteredArticles = articles
 
-        const articleElements = articles.map((article) => <li key={article.id}>
+        if (filter && filter.filter && filter.filter.from && filter.filter.to){
+            filteredArticles = articles.filter(article => ( Date.parse(article.date) >= Date.parse(filter.filter.from) && Date.parse(article.date) <= Date.parse(filter.filter.to) ) )
+        }
+
+        const articleElements = filteredArticles.map((article) => <li key={article.id}>
             <Article
                 article={article}
                 isOpen={article.id === openItemId}
