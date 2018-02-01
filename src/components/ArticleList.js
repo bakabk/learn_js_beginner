@@ -16,13 +16,7 @@ class ArticleList extends Component{
     render() {
         const { articles, toggleOpenItem, openItemId } = this.props
 
-        let filteredArticles = articles
-
-        // if (filter && filter.filter && filter.filter.from && filter.filter.to){
-        //     filteredArticles = articles.filter(article => ( Date.parse(article.date) >= Date.parse(filter.filter.from) && Date.parse(article.date) <= Date.parse(filter.filter.to) ) )
-        // }
-
-        const articleElements = filteredArticles.map((article) => <li key={article.id}>
+        const articleElements = articles.map((article) => <li key={article.id}>
             <Article
                 article={article}
                 isOpen={article.id === openItemId}
@@ -38,7 +32,17 @@ class ArticleList extends Component{
     }
 }
 
-export default connect( store => ({
-    articles: store.articles,
-    filters: store.filters
-}))(accordion(ArticleList))
+export default connect(
+    ({filters, articles}) => {
+    const {selected, dateRange: {from, to}} = filters
+
+    const filteredArticles =  articles.filter(article => {
+        const published = Date.parse(article.date)
+        return (!selected.length || selected.includes(article.id)) &&
+            (!from || !to || (published > from && published < to))
+    })
+
+    return {
+        articles: filteredArticles
+    }
+})(accordion(ArticleList))
