@@ -20,7 +20,10 @@ class Picker extends React.Component {
     }
 
     handleResetClick() {
-        console.log('reset')
+        this.props.editDateFilter({dateFilter:{
+                from: null,
+                to: null
+            }})
     }
 
     render() {
