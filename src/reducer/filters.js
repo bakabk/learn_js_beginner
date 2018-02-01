@@ -1,9 +1,9 @@
-import {EDIT_FILTER} from "../constants";
+import {EDIT_DATE_FILTER} from "../constants";
 
 const defaultFilters = {
     dateRange: {
-        from: undefined,
-        to: undefined
+        from: null,
+        to: null
     },
     selected: []
 }
@@ -11,10 +11,10 @@ const defaultFilters = {
 export default (filters = defaultFilters, action) => {
     const {type, payload} = action
 
-    console.log('filters', filters)
-
     switch (type){
-        case EDIT_FILTER: return Object.assign({}, filters, {dateRange: payload.dateRange}  )
+        case EDIT_DATE_FILTER:
+            // return Object.assign({}, filters, {dateRange: payload.dateFilter})
+            return {...filters, dateRange: payload.dateFilter}
     }
 
     return filters

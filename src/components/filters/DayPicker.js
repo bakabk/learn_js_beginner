@@ -19,12 +19,12 @@ class Picker extends React.Component {
         editDateFilter(DateUtils.addDayToRange(day, dateRange))
     }
 
-    handleResetClick() {}
+    handleResetClick() {
+        console.log('reset')
+    }
 
     render() {
-        const {from, to} = this.props.dateRange;
-
-        console.log('---', from, to)
+        const { dateRange: {from, to} } = this.props;
         const modifiers = { start: from, end: to };
         return (
             <div className="RangeExample">
