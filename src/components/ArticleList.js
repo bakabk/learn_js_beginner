@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Article from './Article'
 import accordion from '../decorators/accordion'
 import {connect} from 'react-redux'
+import _ from 'lodash'
 import {filtratedArticlesSelector} from '../selectors'
 
 class ArticleList extends Component{
@@ -17,13 +18,13 @@ class ArticleList extends Component{
     render() {
         const { articles, toggleOpenItem, openItemId } = this.props
 
-        const articleElements = articles.map((article) => <li key={article.id}>
+        const articleElements = _.map(articles, ((article) => <li key={article.id}>
             <Article
                 article={article}
                 isOpen={article.id === openItemId}
                 toggleOpen={toggleOpenItem(article.id)}
             />
-        </li>)
+        </li>))
 
         return (
             <ul>

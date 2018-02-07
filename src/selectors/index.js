@@ -1,4 +1,5 @@
 import {createSelector} from 'reselect'
+import _ from 'lodash'
 
 const filtersGetter = state => state.filters
 const articlesGetter = state => state.articles
@@ -9,11 +10,11 @@ export const filtratedArticlesSelector = createSelector(articlesGetter, filtersG
     const {selected, dateRange: {from, to}} = filters
     console.log('---', 'recomputing filtration')
 
-    return articles.filter(article => {
+    return _.filter(articles, (article => {
         const published = Date.parse(article.date)
         return (!selected.length || selected.includes(article.id)) &&
             (!from || !to || (published > from && published < to))
-    })
+    }))
 })
 
 export const commentSelectorFactory = () => createSelector(commentsGetter, idGetter, (comments, id) => {
