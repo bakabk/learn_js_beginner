@@ -1,7 +1,10 @@
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 import reducer from '../reducer'
+import logger from '../middleware/logger'
 
-const store = createStore(reducer)
+const enhanser = applyMiddleware(logger)
+
+const store = createStore(reducer, {}, enhanser)
 
 //test
 //dev only. I don't now about "Redux DevTools"
