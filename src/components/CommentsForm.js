@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+// import {addComment} from '../AC'
 
 export default class CommentsFrom extends Component {
     state = {
@@ -28,10 +29,16 @@ export default class CommentsFrom extends Component {
         })
     }
 
+    // handleAddComment = (name, text) => {
+    //     console.log('addComment', name, text, this.props.article.id)
+    // }
+
 
     render() {
         const userValid = this.state.userValid ? '' : 'red'
         const textValid = this.state.textValid ? '' : 'red'
+
+        console.log('commentID', this.props)
 
         return (
             <div>
@@ -39,6 +46,7 @@ export default class CommentsFrom extends Component {
                 <input style={{border: `1px solid ${userValid}`}} type="text" value={this.state.user} onChange={this.changeUser} /> <br />
                 <p>Enter Comment</p>
                 <textarea style={{border: `1px solid ${textValid}`}} value={this.state.text} onChange={this.changeComment} />
+                <button>Enter comment</button>
             </div>
         )
     }

@@ -23,7 +23,7 @@ function getComments({comments, isOpen}) {
             <ul>
                 {comments.map(id => <li key={id}><Comment id={id}/></li>)}
             </ul>
-            <CommentsForm/>
+            <CommentsForm id={comments}/>
         </div>
     )
 }

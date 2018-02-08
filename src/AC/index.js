@@ -1,4 +1,4 @@
-import { INCREMENT, DELETE_ARTICLE, EDIT_DATE_FILTER, EDIT_SELECT_FILTER} from "../constants";
+import { INCREMENT, DELETE_ARTICLE, EDIT_DATE_FILTER, EDIT_SELECT_FILTER, ADD_COMMENT} from "../constants";
 
 export function increment(){
     return {
@@ -24,5 +24,12 @@ export function editSelectFilter(selected){
     return {
         type: EDIT_SELECT_FILTER,
         payload: { selected }
+    }
+}
+
+export function addComment(idArticle, user, text){
+    return {
+        type: ADD_COMMENT,
+        payload: { idArticle, user, text }
     }
 }
