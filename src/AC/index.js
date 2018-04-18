@@ -30,6 +30,7 @@ export function editSelectFilter(selected){
 export function addComment(idArticle, user, text){
     return {
         type: ADD_COMMENT,
-        payload: { idArticle, user, text }
+        payload: { idArticle, user, text },
+        generateId: true
     }
 }

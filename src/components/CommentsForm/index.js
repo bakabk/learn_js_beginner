@@ -1,7 +1,15 @@
 import React, {Component} from 'react'
-// import {addComment} from '../AC'
+import PropTypes from 'prop-types'
 
-export default class CommentsFrom extends Component {
+import {addComment} from "../../AC";
+import {connect} from 'react-redux'
+
+// static propTypes = {
+//           articleId: PropTypes.string.isRequired,
+//           addComment: PropTypes.func.isRequired
+// };
+
+class CommentForm extends Component {
     state = {
         user: '',
         userValid: true,
@@ -51,3 +59,7 @@ export default class CommentsFrom extends Component {
         )
     }
 }
+
+export default connect(null, (dispatch, ownProps) => ({
+    addComment: (comment) => dispatch(addComment(comment, ownProps.articleId))
+}))(CommentForm)

@@ -72,7 +72,7 @@ class Article extends PureComponent{
                 transitionLeaveTimeout={300}
                 transitionAppearTimeout={300}
             component="div">
-            <Comments comments={article.comments} ref={this.componentRef} key={this.state.updateIndex} addComment={this.handleAddComment}/>
+            <Comments article={article} comments={article.comments} ref={this.componentRef} key={this.state.updateIndex} addComment={this.handleAddComment}/>
             </CSSTransitionGroup>
         </section>
     }

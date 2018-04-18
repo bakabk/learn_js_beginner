@@ -1,20 +1,20 @@
 import React from 'react'
 import Comment from './Comment'
 import toggleOppen from '../decorators/toggleOppen'
-import CommentsForm from './CommentsForm'
+import CommentsForm from './CommentsForm/index'
 
-function Comments({comments = [], isOpen, toggleOpen}) {
+function Comments({article, isOpen, toggleOpen}) {
     const text = isOpen ? 'hide comments' : 'open comments'
 
     return (
         <div>
             <button onClick={toggleOpen}>{text}</button>
-            {getComments({comments, isOpen})}
+            {getComments({article, isOpen})}
         </div>
     )
 }
 
-function getComments({comments, isOpen}) {
+function getComments({article: {comments = [], id}, isOpen}) {
     if (!isOpen) return null
     if (!comments.length) return <p>No comments</p>
 
@@ -23,7 +23,7 @@ function getComments({comments, isOpen}) {
             <ul>
                 {comments.map(id => <li key={id}><Comment id={id}/></li>)}
             </ul>
-            <CommentsForm id={comments}/>
+            <CommentsForm articleId={id}/>
         </div>
     )
 }
