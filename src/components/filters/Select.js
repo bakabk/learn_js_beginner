@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Select from 'react-select'
 import {editSelectFilter} from '../../AC/index'
 import {connect} from "react-redux";
-import _ from 'lodash'
 
 class SelectContainer extends Component {
     PropTypes = {}
@@ -13,12 +12,12 @@ class SelectContainer extends Component {
     render(){
         const {articles, selected} = this.props
 
-        const option = _.map( articles, ( item => {
+        const option = articles.map( item => {
             return {
                 label: item.title,
                 value: item.id
             }
-        }))
+        })
 
         return (
             <Select
