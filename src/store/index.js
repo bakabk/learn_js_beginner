@@ -3,8 +3,9 @@ import reducer from '../reducer'
 import logger from '../middleware/logger'
 import randomId from '../middleware/randomId'
 import api from '../middleware/api'
+import thunk from 'redux-thunk'
 
-const enhanser = applyMiddleware(randomId, api, logger)
+const enhanser = applyMiddleware(thunk, randomId, api, logger)
 
 const store = createStore(reducer, {}, enhanser)
 
