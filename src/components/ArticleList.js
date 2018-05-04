@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import Article from './Article'
 import accordion from '../decorators/accordion'
 import {connect} from 'react-redux'
-import _ from 'lodash'
 import {filtratedArticlesSelector} from '../selectors'
 import {loadAllArticles} from "../AC";
+import Loader from './Loader'
 
 class ArticleList extends Component{
     static propTypes = {
@@ -17,19 +17,22 @@ class ArticleList extends Component{
     }
 
     componentDidMount(){
-        this.props.loadAllArticles()
+        const {loaded, loading, loadAllArticles} = this.props
+        if (!loaded || !loading) loadAllArticles()
     }
 
     render() {
-        const { articles, toggleOpenItem, openItemId } = this.props
+        const { articles, toggleOpenItem, openItemId, loading } = this.props
 
-        const articleElements = _.map(articles, ((article) => <li key={article.id}>
+        if (loading) return <Loader />
+
+        const articleElements = articles.map( article => <li key={article.id}>
             <Article
                 article={article}
                 isOpen={article.id === openItemId}
                 toggleOpen={toggleOpenItem(article.id)}
             />
-        </li>))
+        </li>)
 
         return (
             <ul>
@@ -41,6 +44,8 @@ class ArticleList extends Component{
 
 export default connect((state) => {
     return {
-        articles: filtratedArticlesSelector(state)
+        articles: filtratedArticlesSelector(state),
+        loading: state.articles.loading,
+        loaded: state.articles.loaded
     }
 }, {loadAllArticles})(accordion(ArticleList))

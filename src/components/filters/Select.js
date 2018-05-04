@@ -12,16 +12,14 @@ class SelectContainer extends Component {
     render(){
         const {articles, selected} = this.props
 
-        const option = articles.map( item => {
-            return {
-                label: item.title,
-                value: item.id
-            }
-        })
+        const options = articles.map( article => ({
+            label: article.title,
+            value: article.id
+        }))
 
         return (
             <Select
-                options={option}
+                options={options}
                 value={selected}
                 onChange={this.changeSelection}
                 multi
@@ -32,5 +30,5 @@ class SelectContainer extends Component {
 
 export default connect( (store)=>({
     selected: store.filters.selected,
-    articles: store.articles
+    articles: store.articles.entities
 }), {editSelectFilter})(SelectContainer)
