@@ -6,8 +6,7 @@ import {commentSelectorFactory} from '../selectors'
 function Comment({comment}) {
     return (
         <div>
-            <p>{`Commented by ${comment.user}`}</p>
-            <p>{comment.text}</p>
+            <p>{comment.text} <b>by {comment.user}</b></p>
         </div>
     )
 }

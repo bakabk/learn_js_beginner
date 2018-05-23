@@ -1,68 +1,76 @@
 import {
     INCREMENT, DELETE_ARTICLE, EDIT_DATE_FILTER, EDIT_SELECT_FILTER, ADD_COMMENT,
-    LOAD_ALL_ARTICLES, LOAD_ARTICLE, SUCCESS, FAIL, START
+    LOAD_ALL_ARTICLES, LOAD_ARTICLE, LOAD_ARTICLE_COMMENTS, SUCCESS, FAIL, START
 } from "../constants";
 
-export function increment(){
+export function increment() {
     return {
         type: INCREMENT
     }
 }
 
-export function deleteArticle(id){
+export function deleteArticle(id) {
     return {
         type: DELETE_ARTICLE,
-        payload: { id }
+        payload: {id}
     }
 }
 
-export function editDateFilter(dateFilter){
+export function editDateFilter(dateFilter) {
     return {
         type: EDIT_DATE_FILTER,
-        payload: { dateFilter }
+        payload: {dateFilter}
     }
 }
 
-export function editSelectFilter(selected){
+export function editSelectFilter(selected) {
     return {
         type: EDIT_SELECT_FILTER,
-        payload: { selected }
+        payload: {selected}
     }
 }
 
-export function addComment(idArticle, user, text){
+export function addComment(idArticle, user, text) {
     return {
         type: ADD_COMMENT,
-        payload: { idArticle, user, text },
+        payload: {idArticle, user, text},
         generateId: true
     }
 }
 
-export function loadAllArticles(){
+export function loadAllArticles() {
     return {
         type: LOAD_ALL_ARTICLES,
         callAPI: '/api/article'
     }
 }
 
-export function loadArticle(id){
+export function loadArticleComments(articleId) {
+    return {
+        type: LOAD_ARTICLE_COMMENTS,
+        payload: {articleId},
+        callAPI: `/api/comment?article=${articleId}`
+    }
+}
+
+export function loadArticle(id) {
     return (dispatch) => {
         dispatch({
             type: LOAD_ARTICLE + START,
-            payload: { id }
+            payload: {id}
         })
 
-        setTimeout( () => {
+        setTimeout(() => {
             fetch(`/api/article/${id}`)
                 .then(res => res.json())
-                .then( response => dispatch({
+                .then(response => dispatch({
                     type: LOAD_ARTICLE + SUCCESS,
-                    payload: { id, response }
+                    payload: {id, response}
                 }))
                 .catch(error => dispatch({
                     type: LOAD_ARTICLE + FAIL,
-                    payload: { id, error }
+                    payload: {id, error}
                 }))
-        }, 1000)
+        }, 1)
     }
 }
