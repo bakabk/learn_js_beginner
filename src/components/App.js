@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import ArticleList from './ArticleList'
+import Articles from '../routes/Articles'
 import UserForm from './UserForm'
 import Filters from './filters/Select'
 import 'react-select/dist/react-select.css';
@@ -28,7 +28,7 @@ class App extends Component {
                     <Route path="/daypicker" component={DayPicker} />
                     <Route path="/counter" component={Counter} />
                     <Route path="/UserForm" component={UserForm} />
-                    <Route path="/articles" component={ArticleList} />
+                    <Route path="/articles" component={Articles} />
                 </div>
             </Router>
         )

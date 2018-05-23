@@ -10,13 +10,15 @@ import './article.css'
 
 class Article extends PureComponent{
     static propTypes = {
+        id: PropTypes.string.isRequired,
+        isOpen: PropTypes.bool,
+        toggleOpen: PropTypes.func,
+        //from connect
         article: PropTypes.shape({
             id: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
             text: PropTypes.string
-        }).isRequired,
-        isOpen: PropTypes.bool,
-        toggleOpen: PropTypes.func
+        })
     }
 
     state = {
@@ -33,11 +35,11 @@ class Article extends PureComponent{
 
     render() {
         const {article, isOpen, toggleOpen} = this.props
-        console.log('---------', 'updated article')
+        if(!article) return null
 
         return (
             <div ref = {this.containerRef}>
-                <h3>{article.title}</h3>
+                {/*<h3>{article.title}</h3>*/}
                 <button onClick={toggleOpen}>
                     {isOpen ? 'Закрыть' : 'Открыть'}
                 </button>
@@ -89,4 +91,6 @@ class Article extends PureComponent{
     }
 }
 
-export default connect(null, {deleteArticle, loadArticle})(Article)
+export default connect((state, ownProps) => {
+    article: state.articles.entities.get(ownProps.id)
+}, {deleteArticle, loadArticle})(Article)
