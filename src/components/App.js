@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Articles from '../routes/Articles'
+import NewArticle from '../routes/NewArticle'
+import NotFound from '../routes/NotFound'
 import UserForm from './UserForm'
 import Filters from './filters/Select'
 import 'react-select/dist/react-select.css';
-import {HashRouter as Router, Route, NavLink} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, NavLink} from 'react-router-dom'
 import DayPicker from './filters/DayPicker'
 import Counter from './Counter'
 
@@ -24,11 +26,15 @@ class App extends Component {
                         <div><NavLink activeStyle={{color: 'red'}} to="/articles">articles</NavLink></div>
                     </div>
 
-                    <Route path="/filters" component={Filters} />
-                    <Route path="/daypicker" component={DayPicker} />
-                    <Route path="/counter" component={Counter} />
-                    <Route path="/UserForm" component={UserForm} />
-                    <Route path="/articles" component={Articles} />
+                    <Switch>
+                        <Route path="/filters" component={Filters}/>
+                        <Route path="/daypicker" component={DayPicker}/>
+                        <Route path="/counter" component={Counter}/>
+                        <Route path="/UserForm" component={UserForm}/>
+                        <Route path="/articles/new" component={NewArticle}/>
+                        <Route path="/articles" component={Articles}/>
+                        <Route path="*" component={NotFound}/>
+                    </Switch>
                 </div>
             </Router>
         )
