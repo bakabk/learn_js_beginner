@@ -29,11 +29,6 @@ class ArticleList extends Component{
             <NavLink activeStyle={{color: 'red'}} to={`/articles/${article.id}`}>
                 {article.title}
             </NavLink>
-            {/*<Article*/}
-                {/*article={article}*/}
-                {/*isOpen={article.id === openItemId}*/}
-                {/*toggleOpen={toggleOpenItem(article.id)}*/}
-            {/*/>*/}
         </li>)
 
         return (

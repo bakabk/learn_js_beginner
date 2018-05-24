@@ -3,20 +3,20 @@ import {findDOMNode} from 'react-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import Comments from './Comments'
-import { CSSTransitionGroup } from 'react-transition-group'
+import {CSSTransitionGroup} from 'react-transition-group'
 import {deleteArticle, loadArticle} from '../AC'
 import Loader from './Loader'
 import './article.css'
 
-class Article extends PureComponent{
+class Article extends PureComponent {
     static propTypes = {
         id: PropTypes.string.isRequired,
         isOpen: PropTypes.bool,
         toggleOpen: PropTypes.func,
         //from connect
         article: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
+            id: PropTypes.string,
+            title: PropTypes.string,
             text: PropTypes.string
         })
     }
@@ -25,8 +25,9 @@ class Article extends PureComponent{
         updateIndex: 0
     }
 
-    componentWillReceiveProps({isOpen, loadArticle, article}){
-        if (isOpen && !article.text && !article.loading) loadArticle(article.id)
+    componentDidMount() {
+        const {loadArticle, article, id} = this.props
+        if (!article || (!article.text && !article.loading)) loadArticle(id)
     }
 
     // shouldComponentUpdate(nextProps, nextState){
@@ -34,13 +35,12 @@ class Article extends PureComponent{
     // }
 
     render() {
-        console.log('this.props---------', this.props)
         const {article, isOpen, toggleOpen} = this.props
-        if(!article) return null
+        if (!article) return null
 
         return (
-            <div ref = {this.containerRef}>
-                {/*<h3>{article.title}</h3>*/}
+            <div ref={this.containerRef}>
+                <h3>{article.title}</h3>
                 <button onClick={toggleOpen}>
                     {isOpen ? 'Закрыть' : 'Открыть'}
                 </button>
@@ -54,24 +54,21 @@ class Article extends PureComponent{
         // console.log('test ref', ref)
     }
 
-    componentDidMount() {
-        // console.log('test - container did mount')
-    }
-
     handleDelete = () => {
         const {deleteArticle, article} = this.props
         deleteArticle(article.id)
-        console.log('handleDelete click')
+        // console.log('handleDelete click')
     }
 
     getBody = () => {
         const {article, isOpen} = this.props
-        if (!isOpen) return null
-        if (article.loading) return <Loader />
+        if (!article) return null
+        // if (article.loading) return <Loader/>
+
         return <section>
             {article.text}
-            <br />
-            <button onClick={() => this.setState({updateIndex: this.state.updateIndex + 1})} >Updating</button>
+            <br/>
+            <button onClick={() => this.setState({updateIndex: this.state.updateIndex + 1})}>Updating</button>
 
             <button onClick={this.handleDelete}>Delete me</button>
 
@@ -80,8 +77,9 @@ class Article extends PureComponent{
                 transitionEnterTimeout={300}
                 transitionLeaveTimeout={300}
                 transitionAppearTimeout={300}
-            component="div">
-            <Comments article={article} comments={article.comments} ref={this.componentRef} key={this.state.updateIndex} addComment={this.handleAddComment}/>
+                component="div">
+                <Comments article={article} comments={article.comments} ref={this.componentRef}
+                          key={this.state.updateIndex} addComment={this.handleAddComment}/>
             </CSSTransitionGroup>
         </section>
     }
@@ -92,6 +90,11 @@ class Article extends PureComponent{
     }
 }
 
-export default connect((state, ownProps) => ({
-    article: state.articles.entities.get(ownProps.id)
-}), {deleteArticle, loadArticle})(Article)
+export default connect((state, ownProps) => {
+        return {
+            article: state.articles.entities.get(ownProps.id)
+        }
+    },
+    {deleteArticle, loadArticle},
+    null
+)(Article)
