@@ -34,6 +34,7 @@ class Article extends PureComponent{
     // }
 
     render() {
+        console.log('this.props---------', this.props)
         const {article, isOpen, toggleOpen} = this.props
         if(!article) return null
 
@@ -91,6 +92,6 @@ class Article extends PureComponent{
     }
 }
 
-export default connect((state, ownProps) => {
+export default connect((state, ownProps) => ({
     article: state.articles.entities.get(ownProps.id)
-}, {deleteArticle, loadArticle})(Article)
+}), {deleteArticle, loadArticle})(Article)
