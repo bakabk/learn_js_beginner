@@ -11,7 +11,7 @@ export default class Articles extends Component {
         return (
             <div>
                 <ArticleList />
-                <Route path="/articles" render={ this.getIndex }  exact />
+                <Route path="/articles" children={ this.getIndex }  exact />
                 <Route path="/articles/:id" render={ this.getArticle } />
             </div>
         )
@@ -22,7 +22,9 @@ export default class Articles extends Component {
         return <Article id={id} isOpen key={ id }/>
     }
 
-    getIndex = () => {
+    getIndex = (args) => {
+        //for children getIndex always render. For switch it do if(match)
+        if (!args.match) return <h2>Article:</h2>
         return <h2>Please select article</h2>
     }
 }
