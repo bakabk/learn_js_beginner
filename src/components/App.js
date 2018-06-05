@@ -7,7 +7,7 @@ import NotFound from '../routes/NotFound'
 import UserForm from './UserForm'
 import Filters from './filters/Select'
 import 'react-select/dist/react-select.css';
-import {BrowserRouter as Router, Switch, Route, NavLink} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, Redirect, NavLink} from 'react-router-dom'
 import DayPicker from './filters/DayPicker'
 import Counter from './Counter'
 
@@ -34,7 +34,8 @@ class App extends Component {
                         <Route path="/UserForm" component={UserForm}/>
                         <Route path="/articles/new" component={NewArticle}/>
                         <Route path="/articles" component={Articles}/>
-                        <Route path = '/comments/:page' component = {CommentsPage} />
+                        <Route path = '/comments' component = {CommentsPage} />
+                        {/*<Redirect from='/comments/' to='comments/1'/>*/}
                         <Route path="*" component={NotFound}/>
                     </Switch>
                 </div>
