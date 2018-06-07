@@ -7,7 +7,9 @@ import NotFound from '../routes/NotFound'
 import UserForm from './UserForm'
 import Filters from './filters/Select'
 import 'react-select/dist/react-select.css';
-import {BrowserRouter as Router, Switch, Route, Redirect, NavLink} from 'react-router-dom'
+import {Router, Switch, Route, Redirect, NavLink} from 'react-router-dom'
+import {ConnectedRouter} from 'react-router-redux'
+import history from '../history'
 import DayPicker from './filters/DayPicker'
 import Counter from './Counter'
 
@@ -16,7 +18,7 @@ class App extends Component {
 
     render() {
         return (
-            <Router>
+            <Router history = {history}>
                 <div>
                     <div>
                         <h2>Main menu</h2>

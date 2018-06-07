@@ -4,8 +4,10 @@ import logger from '../middleware/logger'
 import randomId from '../middleware/randomId'
 import api from '../middleware/api'
 import thunk from 'redux-thunk'
+import {routerMiddleware} from 'react-router-redux'
+import history from '../history'
 
-const enhanser = applyMiddleware(thunk, randomId, api, logger)
+const enhanser = applyMiddleware(thunk, routerMiddleware(history), randomId, api, logger)
 
 const store = createStore(reducer, {}, enhanser)
 
