@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import Loader from './Loader'
 import Comment from './Comment'
 import CommentsForm from './CommentsForm/index'
@@ -7,6 +8,12 @@ import {loadArticleComments} from '../AC'
 import {connect} from 'react-redux'
 
 class Comments extends Component {
+    static contextTypes = {
+        store: PropTypes.object,
+        router: PropTypes.object,
+        user: PropTypes.string
+    }
+
     componentWillReceiveProps({isOpen, article, loadArticleComments}) {
         if (!this.props.isOpen && isOpen && !article.commentsLoading && !article.commentsLoaded) {
             loadArticleComments(article.id)
@@ -15,10 +22,14 @@ class Comments extends Component {
 
     render() {
         const {article, isOpen, toggleOpen} = this.props
+
+        console.log('----', this.context)
+
         const text = isOpen ? 'hide comments' : 'open comments'
 
         return (
             <div>
+                <div>{this.context.user}</div>
                 <button onClick={toggleOpen}>{text}</button>
                 {getComments({article, isOpen})}
             </div>
@@ -43,4 +54,4 @@ function getComments({article: {comments = [], id, commentsLoaded, commentsLoadi
     )
 }
 
-export default connect(null, {loadArticleComments})(toggleOppen(Comments))
+export default connect(null, {loadArticleComments}, null, {pure: false})(toggleOppen(Comments))

@@ -1,15 +1,10 @@
 import React, {Component} from 'react'
 
 export default class UserForm extends Component{
-    state={
-        username: ''
-    }
-
     render(){
-        console.log('render UserForm ', this.state.username)
         return(
             <div>
-                Name: <input type="text" value={this.state.username} onChange={this.handleUserChange} />
+                Name: <input type="text" value={this.props.value} onChange={this.handleUserChange} />
             </div>
         )
     }
@@ -18,8 +13,6 @@ export default class UserForm extends Component{
         //ex maxLenght = 10
         if (ev.target.value.length > 10) return
 
-        this.setState({
-            username: ev.target.value
-        })
+        this.props.onChange(ev.target.value)
     }
 }

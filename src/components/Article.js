@@ -8,7 +8,7 @@ import {deleteArticle, loadArticle} from '../AC'
 import Loader from './Loader'
 import './article.css'
 
-class Article extends PureComponent {
+class Article extends Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
         isOpen: PropTypes.bool,
@@ -96,5 +96,6 @@ export default connect((state, ownProps) => {
         }
     },
     {deleteArticle, loadArticle},
-    null
+    null,
+    { pure: false }
 )(Article)

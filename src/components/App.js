@@ -14,7 +14,23 @@ import DayPicker from './filters/DayPicker'
 import Counter from './Counter'
 
 class App extends Component {
-    PropTypes = {}
+    static PropTypes = {}
+
+    static childContextTypes = {
+        user: PropTypes.string
+    }
+
+    getChildContext(){
+        return {
+            user: this.state.username
+        }
+    }
+
+    state = {
+        username: 'testUser'
+    }
+
+    handlerUserChange = (username) => this.setState({username: username})
 
     render() {
         return (
@@ -25,15 +41,13 @@ class App extends Component {
                         <div><NavLink activeStyle={{color: 'red'}} to="/filters">Filters</NavLink></div>
                         <div><NavLink activeStyle={{color: 'red'}} to="/daypicker">daypicker</NavLink></div>
                         <div><NavLink activeStyle={{color: 'red'}} to="/counter">counter</NavLink></div>
-                        <div><NavLink activeStyle={{color: 'red'}} to="/UserForm">UserForm</NavLink></div>
                         <div><NavLink activeStyle={{color: 'red'}} to="/articles">articles</NavLink></div>
                     </div>
-
+                    <UserForm value={this.state.username} onChange={this.handlerUserChange}/>
                     <Switch>
                         <Route path="/filters" component={Filters}/>
                         <Route path="/daypicker" component={DayPicker}/>
                         <Route path="/counter" component={Counter}/>
-                        <Route path="/UserForm" component={UserForm}/>
                         <Route path="/articles/new" component={NewArticle}/>
                         <Route path="/articles" component={Articles}/>
                         <Route path = '/comments' component = {CommentsPage} />
