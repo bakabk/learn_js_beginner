@@ -6,6 +6,7 @@ import Comments from './Comments'
 import {CSSTransitionGroup} from 'react-transition-group'
 import {deleteArticle, loadArticle} from '../AC'
 import Loader from './Loader'
+import LocalizedText from './LocalizedText'
 import './article.css'
 
 class Article extends Component {
@@ -41,9 +42,7 @@ class Article extends Component {
         return (
             <div ref={this.containerRef}>
                 <h3>{article.title}</h3>
-                <button onClick={toggleOpen}>
-                    {isOpen ? 'Закрыть' : 'Открыть'}
-                </button>
+                <button onClick = {this.handleDelete}><LocalizedText>delete me</LocalizedText></button>
                 {this.getBody()}
             </div>
         )
@@ -68,9 +67,9 @@ class Article extends Component {
         return <section>
             {article.text}
             <br/>
-            <button onClick={() => this.setState({updateIndex: this.state.updateIndex + 1})}>Updating</button>
+            {/*<button onClick={() => this.setState({updateIndex: this.state.updateIndex + 1})}>Updating</button>*/}
 
-            <button onClick={this.handleDelete}>Delete me</button>
+            {/*<button onClick={this.handleDelete}>Delete me</button>*/}
 
             <CSSTransitionGroup
                 transitionName="article"

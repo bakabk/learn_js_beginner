@@ -9,6 +9,7 @@ import Filters from './filters/Select'
 import 'react-select/dist/react-select.css';
 import {Router, Switch, Route, Redirect, NavLink} from 'react-router-dom'
 import {ConnectedRouter} from 'react-router-redux'
+import LangProvider from './LangProvider'
 import history from '../history'
 import DayPicker from './filters/DayPicker'
 import Counter from './Counter'
@@ -20,23 +21,31 @@ class App extends Component {
         user: PropTypes.string
     }
 
-    getChildContext(){
+    getChildContext() {
         return {
             user: this.state.username
         }
     }
 
     state = {
-        username: 'testUser'
+        username: 'testUser',
+        language: 'ru'
     }
+
+    changeLanguage = language => ev => this.setState({ language: language })
 
     handlerUserChange = (username) => this.setState({username: username})
 
     render() {
         return (
-            <Router history = {history}>
-                <div>
+            <Router history={history}>
+                <LangProvider language={this.state.language}>
                     <div>
+                        <ul>
+                            <li onClick={this.changeLanguage('en')}>English</li>
+                            <li onClick={this.changeLanguage('ru')}>Russian</li>
+                        </ul>
+
                         <h2>Main menu</h2>
                         <div><NavLink activeStyle={{color: 'red'}} to="/filters">Filters</NavLink></div>
                         <div><NavLink activeStyle={{color: 'red'}} to="/daypicker">daypicker</NavLink></div>
@@ -50,11 +59,11 @@ class App extends Component {
                         <Route path="/counter" component={Counter}/>
                         <Route path="/articles/new" component={NewArticle}/>
                         <Route path="/articles" component={Articles}/>
-                        <Route path = '/comments' component = {CommentsPage} />
+                        <Route path='/comments' component={CommentsPage}/>
                         {/*<Redirect from='/comments/' to='comments/1'/>*/}
                         <Route path="*" component={NotFound}/>
                     </Switch>
-                </div>
+                </LangProvider>
             </Router>
         )
     }
